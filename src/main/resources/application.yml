@@ -5,19 +5,23 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: my_route
-          uri: http://httpbin.org
+        - id: crm_gateway
+          uri: http://localhost:7011
           predicates:
-            - Path=/get
+            - Path=/crm-zuul/**
+          filters:
+            - StripPrefix=1
         - id: crm_system
-          uri: http://192.168.30.104:7011
+          uri: http://localhost:7011
           predicates:
-            - Path=/crm-admin/{adminPath}
-          filter:
-            - SetPath=/crm-user/{adminPath}
+            - Path=/crm-admin/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/api-user
         - id: crm_custom
-          uri: http://192.168.30.104:7011
+          uri: http://localhost:7011
           predicates:
-            - Path=/crm-biz/{detail}
-          filter:
-            - SetPath=/crm-custom/{detail}
+            - Path=/crm-custom/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/api-custom
