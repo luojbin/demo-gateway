@@ -1,0 +1,23 @@
+server:
+  port: 8123
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: my_route
+          uri: http://httpbin.org
+          predicates:
+            - Path=/get
+        - id: crm_system
+          uri: http://192.168.30.104:7011
+          predicates:
+            - Path=/crm-admin/{adminPath}
+          filter:
+            - SetPath=/crm-user/{adminPath}
+        - id: crm_custom
+          uri: http://192.168.30.104:7011
+          predicates:
+            - Path=/crm-biz/{detail}
+          filter:
+            - SetPath=/crm-custom/{detail}
