@@ -11,6 +11,7 @@ spring:
             - Path=/crm-zuul/**
           filters:
             - StripPrefix=1
+            - Post
         - id: crm_system
           uri: http://localhost:7011
           predicates:
