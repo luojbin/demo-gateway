@@ -5,24 +5,26 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: crm_gateway
-          uri: http://localhost:7011
+        - id: myGateway
+          uri: http://localhost:8083
           predicates:
-            - Path=/crm-zuul/**
+            - Path=/api-gateway/**
           filters:
             - StripPrefix=1
-            - Post
-        - id: crm_system
-          uri: http://localhost:7011
+            - PrefixPath=/gateway
+
+        - id: mySystem
+          uri: http://localhost:8083
           predicates:
-            - Path=/crm-admin/**
+            - Path=/api-system/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/api-user
-        - id: crm_custom
-          uri: http://localhost:7011
+            - PrefixPath=/system
+
+        - id: myCustomer
+          uri: http://localhost:8083
           predicates:
-            - Path=/crm-custom/**
+            - Path=/api-customer/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/api-custom
+            - PrefixPath=/customer
