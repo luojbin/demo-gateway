@@ -12,6 +12,15 @@ spring:
           filters:
             - StripPrefix=1
             - PrefixPath=/gateway
+            - MyPre
+            - MyPost
+            - MyKeyValue=hello, world
+            - name: MyArgs
+              args:
+                name: tom
+                age: 18
+                address: china
+
 
         - id: mySystem
           uri: http://localhost:8083

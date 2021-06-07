@@ -9,9 +9,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class PostGatewayFilterFactory extends AbstractGatewayFilterFactory<PostGatewayFilterFactory.Config> {
-
-    public PostGatewayFilterFactory() {
+public class MyPostGatewayFilterFactory extends AbstractGatewayFilterFactory<MyPostGatewayFilterFactory.Config> {
+    public MyPostGatewayFilterFactory() {
         super(Config.class);
     }
 
@@ -38,9 +37,7 @@ public class PostGatewayFilterFactory extends AbstractGatewayFilterFactory<PostG
 
 
                         // todo 操作 response 对象
-                        System.out.println("post filter");
-
-
+                        System.out.println("post filter: " + response.getStatusCode());
 
                     }));
             return result;

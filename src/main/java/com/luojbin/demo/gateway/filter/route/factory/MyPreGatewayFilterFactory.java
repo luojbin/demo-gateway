@@ -4,10 +4,16 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-public class PreGatewayFilterFactory extends AbstractGatewayFilterFactory<PreGatewayFilterFactory.Config> {
+@Component
+public class MyPreGatewayFilterFactory extends AbstractGatewayFilterFactory<MyPreGatewayFilterFactory.Config> {
+    public MyPreGatewayFilterFactory() {
+        super(Config.class);
+    }
+
     @Override
     public GatewayFilter apply(Config config) {
         return new PreGatewayFilter(config);
@@ -26,7 +32,8 @@ public class PreGatewayFilterFactory extends AbstractGatewayFilterFactory<PreGat
             ServerHttpRequest.Builder builder = exchange.getRequest().mutate();
 
 
-            // todo 通过 request builder 来修改 request 对象
+            // todo 通过 request builder 来操作 request 对象
+            System.out.println("pre filter: " + exchange.getRequest().getPath());
 
 
             // 修改完成后, 用 builder 构造一个新的 request 对象, 传递到下游继续处理
