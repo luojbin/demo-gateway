@@ -1,5 +1,6 @@
 package com.luojbin.demo.gateway.filter.route.factory;
 
+import lombok.Data;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -30,34 +31,11 @@ public class MyArgsGatewayFilterFactory extends AbstractGatewayFilterFactory<MyA
     public MyArgsGatewayFilterFactory() {
         super(Config.class);
     }
+    @Data
     public static class Config{
         private String name;
         private String age;
         private String address;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getAge() {
-            return age;
-        }
-
-        public void setAge(String age) {
-            this.age = age;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
     }
     // endregion 自定义配置类
 
@@ -77,7 +55,7 @@ public class MyArgsGatewayFilterFactory extends AbstractGatewayFilterFactory<MyA
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
             ServerHttpRequest.Builder builder = exchange.getRequest().mutate();
 
-            System.out.println("args filter: desc=" + this.desc + ", number=" + this.number + ", location=" + this.location);
+            System.out.println("pre-args filter: desc=" + this.desc + ", number=" + this.number + ", location=" + this.location);
 
             return chain.filter(exchange.mutate().request(builder.build()).build());
         }

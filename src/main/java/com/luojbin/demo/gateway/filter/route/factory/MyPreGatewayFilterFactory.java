@@ -33,7 +33,7 @@ public class MyPreGatewayFilterFactory extends AbstractGatewayFilterFactory<MyPr
 
 
             // todo 通过 request builder 来操作 request 对象
-            System.out.println("pre filter: " + exchange.getRequest().getPath());
+            System.out.println("pre-pre filter: " + exchange.getRequest().getPath());
 
 
             // 修改完成后, 用 builder 构造一个新的 request 对象, 传递到下游继续处理
