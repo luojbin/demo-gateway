@@ -16,7 +16,7 @@ spring:
       discovery:
         locator:
           enabled: true
-          # 默认使用大写的 service-id, 这个选项改成小写
+          # 默认使用大写的 service-id, 这个选项允许改成小写
           lower-case-service-id: true
       routes:
         - id: myGateway
@@ -46,3 +46,10 @@ spring:
           filters:
             - StripPrefix=1
             - PrefixPath=/customer
+
+        - id: msUser
+          uri: lb://simple-user
+          predicates:
+            - Path=/ms-user/**
+          filters:
+            - RewritePath=/ms-user/(?<remaining>.*), /$\{remaining}
