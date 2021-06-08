@@ -1,9 +1,23 @@
 server:
   port: 8123
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://peer1:8001/eureka/
+
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          # 默认使用大写的 service-id, 这个选项改成小写
+          lower-case-service-id: true
       routes:
         - id: myGateway
           uri: http://localhost:8083
